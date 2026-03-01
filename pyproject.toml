@@ -1,7 +1,7 @@
 [project]
 name = "maxson-biorem"
 version = "0.1.0"
-description = "Add your description here"
+description = "Represent BioRem system topolgy, with connectivity and metadata."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

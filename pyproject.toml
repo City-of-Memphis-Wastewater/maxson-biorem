@@ -1,0 +1,11 @@
+[project]
+name = "maxson-biorem"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "networkx>=3.6.1",
+    "prettytable>=2.5.0",
+    "redisgraph>=2.4.4",
+]

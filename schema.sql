@@ -6,6 +6,17 @@ CREATE TABLE IF NOT EXISTS nodes (
     metadata JSON DEFAULT '{}' -- additional properties in JSON
 );
 
+CREATE TABLE IF NOT EXISTS nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT NOT NULL,          -- 'component', 'sensor', 'tank', etc.
+    name TEXT NOT NULL UNIQUE,
+    x REAL DEFAULT 0,            -- X coordinate in meters
+    y REAL DEFAULT 0,            -- Y coordinate
+    z REAL DEFAULT 0,            -- Z coordinate (height)
+    volume REAL DEFAULT 0,       -- rough volume in m³
+    metadata JSON DEFAULT '{}'   -- any other properties
+);
+
 -- edges table (graph relationships)
 CREATE TABLE IF NOT EXISTS edges (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

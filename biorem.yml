@@ -1,0 +1,169 @@
+# Biorem System Topology
+# Nodes, pipes, bends, sensor positions, and metadata
+nodes:
+  # --- Blowers ---
+  - id: Blower1
+    type: component
+    position: [0, 0, 0]        # X, Y, Z meters
+    metadata:
+      description: "First biogas blower"
+      volume_m3: 1.0
+
+  - id: Blower2
+    type: component
+    position: [3, 0, 0]
+    metadata:
+      description: "Second biogas blower"
+      volume_m3: 1.0
+
+  - id: Blower3
+    type: component
+    position: [6, 0, 0]
+    metadata:
+      description: "Third biogas blower"
+      volume_m3: 1.0
+
+  # --- Reactor Tanks ---
+  - id: Reactor1
+    type: tank
+    position: [9, 0, 0]
+    metadata:
+      volume_m3: 50
+      description: "Reactor tank 1"
+
+  - id: Reactor2
+    type: tank
+    position: [12, 0, 0]
+    metadata:
+      volume_m3: 50
+      description: "Reactor tank 2"
+
+  - id: Reactor3
+    type: tank
+    position: [15, 0, 0]
+    metadata:
+      volume_m3: 50
+      description: "Reactor tank 3"
+
+  - id: Reactor4
+    type: tank
+    position: [18, 0, 0]
+    metadata:
+      volume_m3: 50
+      description: "Reactor tank 4"
+
+  # --- Flare ---
+  - id: Flare
+    type: component
+    position: [21, 0, 0]
+    metadata:
+      description: "Biogas flare"
+
+  # --- Sensors ---
+  - id: Sensor_Blower1_Temp
+    type: sensor
+    position: [0, 0.2, 0]
+    metadata:
+      measures: "temperature"
+
+  - id: Sensor_Blower2_Press
+    type: sensor
+    position: [3, 0.2, 0]
+    metadata:
+      measures: "pressure"
+
+  - id: Sensor_Reactor1_Level
+    type: sensor
+    position: [9, 0, 0.5]
+    metadata:
+      measures: "liquid level"
+
+  - id: Sensor_Reactor2_Level
+    type: sensor
+    position: [12, 0, 0.5]
+    metadata:
+      measures: "liquid level"
+
+  - id: Sensor_Reactor3_Level
+    type: sensor
+    position: [15, 0, 0.5]
+    metadata:
+      measures: "liquid level"
+
+  - id: Sensor_Reactor4_Level
+    type: sensor
+    position: [18, 0, 0.5]
+    metadata:
+      measures: "liquid level"
+
+edges:
+  # --- Blower series pipes ---
+  - from: Blower1
+    to: Blower2
+    type: pipe
+    metadata:
+      diameter_inch: 24
+      bends: []  # straight
+      sensors: []
+
+  - from: Blower2
+    to: Blower3
+    type: pipe
+    metadata:
+      diameter_inch: 24
+      bends: []
+      sensors:
+        - Sensor_Blower2_Press
+
+  - from: Blower3
+    to: Reactor1
+    type: pipe
+    metadata:
+      diameter_inch: 24
+      bends:
+        - [6, 0.5, 0]  # gentle bend before reactor1
+      sensors: []
+
+  # --- Reactor series pipes ---
+  - from: Reactor1
+    to: Reactor2
+    type: pipe
+    metadata:
+      diameter_inch: 20
+      bends: []
+      sensors:
+        - Sensor_Reactor1_Level
+
+  - from: Reactor2
+    to: Reactor3
+    type: pipe
+    metadata:
+      diameter_inch: 20
+      bends: []
+      sensors:
+        - Sensor_Reactor2_Level
+
+  - from: Reactor3
+    to: Reactor4
+    type: pipe
+    metadata:
+      diameter_inch: 20
+      bends: []
+      sensors:
+        - Sensor_Reactor3_Level
+
+  - from: Reactor4
+    to: Flare
+    type: pipe
+    metadata:
+      diameter_inch: 20
+      bends:
+        - [19, 0, 0.2]  # small bend before flare
+      sensors:
+        - Sensor_Reactor4_Level
+
+# Optional: global metadata for the system
+metadata:
+  system_name: "Maxson Biorem System"
+  description: "Biogas treatment plant with 3 blowers, 4 reactors, and flare"
+  units: "meters / m3 / inches"

@@ -1,0 +1,286 @@
+# Maxson Biorem System Topology (Geo-referenced)
+# Full node and pipe metadata with coordinates, elevations, volumes, and sensors
+
+nodes:
+  # --- Blowers ---
+  - id: Blower1
+    type: component
+    position:
+      lat: 35.067041
+      lon: -90.135530
+      elevation_m: 120.0
+    metadata:
+      description: "First biogas blower"
+      volume_m3: 1.0
+      height_m: 1.5
+      manufacturer: "BiogasTech"
+      installation_date: "2024-06-01"
+      operational_status: "online"
+      tags: ["blower", "biogas"]
+
+  - id: Blower2
+    type: component
+    position:
+      lat: 35.067042
+      lon: -90.135525
+      elevation_m: 120.0
+    metadata:
+      description: "Second biogas blower"
+      volume_m3: 1.0
+      height_m: 1.5
+      manufacturer: "BiogasTech"
+      installation_date: "2024-06-01"
+      operational_status: "online"
+      tags: ["blower", "biogas"]
+
+  - id: Blower3
+    type: component
+    position:
+      lat: 35.067043
+      lon: -90.135520
+      elevation_m: 120.0
+    metadata:
+      description: "Third biogas blower"
+      volume_m3: 1.0
+      height_m: 1.5
+      manufacturer: "BiogasTech"
+      installation_date: "2024-06-01"
+      operational_status: "online"
+      tags: ["blower", "biogas"]
+
+  # --- Reactor Tanks ---
+  - id: Reactor1
+    type: tank
+    position:
+      lat: 35.067050
+      lon: -90.135500
+      elevation_m: 121.0
+    metadata:
+      description: "Reactor tank 1"
+      volume_m3: 50
+      diameter_m: 3.0
+      height_m: 7.0
+      material: "stainless steel"
+      installation_date: "2024-06-10"
+      operational_status: "online"
+
+  - id: Reactor2
+    type: tank
+    position:
+      lat: 35.067060
+      lon: -90.135480
+      elevation_m: 121.0
+    metadata:
+      description: "Reactor tank 2"
+      volume_m3: 50
+      diameter_m: 3.0
+      height_m: 7.0
+      material: "stainless steel"
+      installation_date: "2024-06-10"
+      operational_status: "online"
+
+  - id: Reactor3
+    type: tank
+    position:
+      lat: 35.067070
+      lon: -90.135460
+      elevation_m: 121.0
+    metadata:
+      description: "Reactor tank 3"
+      volume_m3: 50
+      diameter_m: 3.0
+      height_m: 7.0
+      material: "stainless steel"
+      installation_date: "2024-06-10"
+      operational_status: "online"
+
+  - id: Reactor4
+    type: tank
+    position:
+      lat: 35.067080
+      lon: -90.135440
+      elevation_m: 121.0
+    metadata:
+      description: "Reactor tank 4"
+      volume_m3: 50
+      diameter_m: 3.0
+      height_m: 7.0
+      material: "stainless steel"
+      installation_date: "2024-06-10"
+      operational_status: "online"
+
+  # --- Flare ---
+  - id: Flare
+    type: component
+    position:
+      lat: 35.067090
+      lon: -90.135420
+      elevation_m: 120.5
+    metadata:
+      description: "Biogas flare"
+      manufacturer: "FlareCo"
+      installation_date: "2024-06-15"
+      operational_status: "online"
+
+  # --- Sensors ---
+  - id: Sensor_Blower1_Temp
+    type: sensor
+    position:
+      lat: 35.067041
+      lon: -90.135531
+      elevation_m: 120.1
+    metadata:
+      measures: "temperature"
+      sensor_type: "thermocouple"
+      accuracy: "±0.5°C"
+      unit: "°C"
+
+  - id: Sensor_Blower2_Press
+    type: sensor
+    position:
+      lat: 35.067042
+      lon: -90.135524
+      elevation_m: 120.1
+    metadata:
+      measures: "pressure"
+      sensor_type: "pressure transducer"
+      accuracy: "±0.2 bar"
+      unit: "bar"
+
+  - id: Sensor_Reactor1_Level
+    type: sensor
+    position:
+      lat: 35.067050
+      lon: -90.135500
+      elevation_m: 121.5
+    metadata:
+      measures: "liquid level"
+      sensor_type: "ultrasonic"
+      accuracy: "±0.05 m"
+      unit: "m"
+
+  - id: Sensor_Reactor2_Level
+    type: sensor
+    position:
+      lat: 35.067060
+      lon: -90.135480
+      elevation_m: 121.5
+    metadata:
+      measures: "liquid level"
+      sensor_type: "ultrasonic"
+      accuracy: "±0.05 m"
+      unit: "m"
+
+  - id: Sensor_Reactor3_Level
+    type: sensor
+    position:
+      lat: 35.067070
+      lon: -90.135460
+      elevation_m: 121.5
+    metadata:
+      measures: "liquid level"
+      sensor_type: "ultrasonic"
+      accuracy: "±0.05 m"
+      unit: "m"
+
+  - id: Sensor_Reactor4_Level
+    type: sensor
+    position:
+      lat: 35.067080
+      lon: -90.135440
+      elevation_m: 121.5
+    metadata:
+      measures: "liquid level"
+      sensor_type: "ultrasonic"
+      accuracy: "±0.05 m"
+      unit: "m"
+
+edges:
+  # --- Blower series pipes ---
+  - from: Blower1
+    to: Blower2
+    type: pipe
+    metadata:
+      diameter_inch: 24
+      length_m: 3.0
+      bends:
+        - lat: 35.067041
+          lon: -90.135529
+          elevation_m: 120.0
+      sensors:
+        - Sensor_Blower1_Temp
+
+  - from: Blower2
+    to: Blower3
+    type: pipe
+    metadata:
+      diameter_inch: 24
+      length_m: 3.0
+      bends: []
+      sensors:
+        - Sensor_Blower2_Press
+
+  - from: Blower3
+    to: Reactor1
+    type: pipe
+    metadata:
+      diameter_inch: 24
+      length_m: 3.5
+      bends:
+        - lat: 35.067044
+          lon: -90.135518
+          elevation_m: 120.5
+      sensors: []
+
+  # --- Reactor series pipes ---
+  - from: Reactor1
+    to: Reactor2
+    type: pipe
+    metadata:
+      diameter_inch: 20
+      length_m: 3.0
+      bends: []
+      sensors:
+        - Sensor_Reactor1_Level
+
+  - from: Reactor2
+    to: Reactor3
+    type: pipe
+    metadata:
+      diameter_inch: 20
+      length_m: 3.0
+      bends: []
+      sensors:
+        - Sensor_Reactor2_Level
+
+  - from: Reactor3
+    to: Reactor4
+    type: pipe
+    metadata:
+      diameter_inch: 20
+      length_m: 3.0
+      bends: []
+      sensors:
+        - Sensor_Reactor3_Level
+
+  - from: Reactor4
+    to: Flare
+    type: pipe
+    metadata:
+      diameter_inch: 20
+      length_m: 3.5
+      bends:
+        - lat: 35.067082
+          lon: -90.135438
+          elevation_m: 120.6
+      sensors:
+        - Sensor_Reactor4_Level
+
+metadata:
+  system_name: "Maxson Biorem System"
+  description: "Biogas treatment plant with 3 blowers, 4 reactors, and flare"
+  units: "meters / m3 / inches / °C / bar"
+  datum: "sea level"
+  coordinate_system: "WGS84"
+  last_updated: "2026-02-28T12:00:00Z"
+  author: "Maxson Team"

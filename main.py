@@ -40,7 +40,9 @@ def main():
         (node_ids['Pump1'], node_ids['FlowMeter1'], 'HAS_SENSOR', '{"status":"active"}'),
         (node_ids['FlowMeter1'], node_ids['Tank1'], 'MEASURES', '{"flow_rate":50}')
     ]
-    cur.executemany("INSERT INTO edges (from_id, to_id, type, properties) VALUES (?, ?, ?, ?)", edges)
+    #cur.executemany("INSERT INTO edges (from_id, to_id, type, properties) VALUES (?, ?, ?, ?)", edges)
+    cur.executemany(
+    "INSERT OR IGNORE INTO edges (from_id, to_id, type, properties) VALUES (?, ?, ?, ?)",edges)
     conn.commit()
 
     # -----------------------------
@@ -50,7 +52,7 @@ def main():
         (node_ids['FlowMeter1'], 48.5),
         (node_ids['FlowMeter1'], 49.2)
     ]
-    cur.executemany("INSERT INTO readings (node_id, value) VALUES (?, ?)", readings)
+    cur.executemany("INSERT OR IGNORE INTO readings (node_id, value) VALUES (?, ?)", readings)
     conn.commit()
 
     # -----------------------------

@@ -15,7 +15,9 @@ CREATE TABLE IF NOT EXISTS edges (
     properties JSON DEFAULT '{}',
     FOREIGN KEY(from_id) REFERENCES nodes(id),
     FOREIGN KEY(to_id) REFERENCES nodes(id)
+    UNIQUE(from_id, to_id, type)  -- ensures no duplicates
 );
+
 
 -- readings table for sensors
 CREATE TABLE IF NOT EXISTS readings (
@@ -24,6 +26,7 @@ CREATE TABLE IF NOT EXISTS readings (
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     value REAL NOT NULL,
     FOREIGN KEY(node_id) REFERENCES nodes(id)
+    UNIQUE(node_id, timestamp)  -- prevents multiple readings at the same timestamp
 );
 
 -- events table for issues or alerts
@@ -34,4 +37,5 @@ CREATE TABLE IF NOT EXISTS events (
     type TEXT NOT NULL,       -- 'failure', 'alert', 'maintenance'
     description TEXT,
     FOREIGN KEY(node_id) REFERENCES nodes(id)
+    UNIQUE(node_id, timestamp, type)  -- prevents duplicate events  at the same timestamp
 );
